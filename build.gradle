@@ -15,10 +15,12 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.projectlombok:lombok' // 라이브러리 받고, 플러그인 설치
+    implementation 'junit:junit:4.13.2'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
 
-tasks.named('test') {
-    useJUnitPlatform()
+    testImplementation('org.projectlombok:lombok')
+    annotationProcessor('org.projectlombok:lombok')
+    testAnnotationProcessor('org.projectlombok:lombok')
 }
