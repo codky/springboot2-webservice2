@@ -1,5 +1,6 @@
 package com.codky.book.springboot2webservice2.domain.posts;
 
+import com.codky.book.springboot2webservice2.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Getter // 클래스 내 모든 필드의 Getter 메소드를 자동생성
 @NoArgsConstructor // 기본 생성자 자동추가
 @Entity // 테이블과 링크될 클래스임을 나타낸다.
-public class Posts {
+public class Posts extends BaseTimeEntity {
     @Id // 해당 테이블의 PK 필드
     @GeneratedValue(strategy = GenerationType.IDENTITY) // PK의 생성 규칙
     private Long id;
