@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.7.4'
+    id 'org.springframework.boot' version '2.6.7'
     id 'io.spring.dependency-management' version '1.0.14.RELEASE'
     id 'java'
     id 'war'
@@ -7,10 +7,19 @@ plugins {
 
 group = 'com.codky.book'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
+}
+//한글깨짐: 스프링부트 버전 https://www.inflearn.com/questions/545116
+//한글깨짐 jdk https://knoow.tistory.com/195
+//jdk 변경 https://coding-factory.tistory.com/823
+//https://github.com/kimleekim/Spring-Pllabel/issues/3
+
+sourceCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
 
 dependencies {
