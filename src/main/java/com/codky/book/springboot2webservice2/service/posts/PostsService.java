@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -43,5 +44,15 @@ public class PostsService {
         return postsRepository.findAllDesc().stream() // postsRepository 결과로 넘어온 Posts의 Stream을 
                 .map(PostsListResponseDto::new) // map 으로 PostsListResponseDto 변환
                 .collect(Collectors.toList()); // List로 반환
+    }
+
+    @Transactional
+    public void delete (Long id) {
+        // 존재하는 Posts인지 확인을 위해 엔티티 조회
+        Posts posts = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+
+        // JpaRepository에서 이미 delete 메소드를 지원하고 있다.
+        // 엔티티를 파라미터로 삭제할 수도 있고, deleteById 메소드로 id를 찾아 삭제할 수도 있다.
+        postsRepository.delete(posts);
     }
 }
