@@ -29,6 +29,8 @@ public class IndexController {
             model.addAttribute("userName", user.getName());
         }
         
+        System.out.println("branch test");
+
         return "index"; // index.mustache
     }
 
