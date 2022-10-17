@@ -18,19 +18,14 @@ public class IndexController {
     private final PostsService postsService;
     private final HttpSession httpSession;
 
+    // 서버 템플릿 엔진에서 사용할 수 있는 객체를 저장할 수 있다.
     @GetMapping("/")
-    public String index(Model model) { // 서버 템플릿 엔진에서 사용할 수 있는 객체를 저장할 수 있다.
+    public String index(Model model, @LoginUser SessionUser user) { // 기존에 (User)httpSession.getAttribute("user")로 가져오던 세션정보 개선, 어느 컨트롤러에서도 @LoginUser로 세션정보를 사용 가능
         model.addAttribute("posts", postsService.findAllDesc());
 
-        // CustomOAuth2UserService에서 로그인 성공 시 세션에 SessionUser를 저장하도록 구성, 즉 로그인 성공시 HttpSession.getAttribute("user")로 값을 가져올 수 있음
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
-        
         if (user != null) { // 세션에 저장된 값이 있을 때만 model에 userName으로 등록. 세션에 저장된 값이 없으면 model엔 아무런 값도 없기때문에 로그인 버튼 노출
             model.addAttribute("userName", user.getName());
         }
-        
-        System.out.println("branch test");
-
         return "index"; // index.mustache
     }
 
